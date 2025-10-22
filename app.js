@@ -10,12 +10,10 @@
  *      - Alla launches som tillhör en given "kategori" (här: raketnamn) → skriv "name — category".
  *      - Ett objekt som räknar hur många launches per kategori (raket).
  *      - some/every, flatMap, sort, slice demonstreras tydligt.
- *  4) Stretch (VG):
+ *  4) Stretch:
  *      - groupBy(items, keyOrFn)
  *      - Select & reshape till kompakta sammanfattningar
  *      - Frequency map på t.ex. failure reasons och booster-cores
- *
- * OBS: Allt skrivs till konsolen (uppgiften kräver ej UI).
  */
 
 "use strict";
@@ -25,13 +23,8 @@
 // -------------------------
 const BASE = "https://api.spacexdata.com/v4";
 
-// Vilken "kategori" vill vi filtrera på? (case-insensitive)
 // Vanliga: "Falcon 9", "Falcon Heavy", "Starship", "Falcon 1"
 const GIVEN_CATEGORY = "Falcon 9";
-
-// -------------------------
-// Små hjälpare
-// -------------------------
 
 /** Snygg utskrift i konsolen */
 function print(label, value) {
@@ -149,7 +142,7 @@ function normalizeLaunches(launches, rockets) {
     }, {});
     print("Antal launches per raket (kategori)", launchesPerRocket);
 
-    // --- Stretch goals (VG) ---
+    // --- Stretch goals ---
 
     // 4.1) groupBy: efter rocketName och efter år
     const byRocket = groupBy(data, "rocketName");
