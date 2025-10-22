@@ -18,7 +18,7 @@ slice — visa “första 5”.
 
 Skriver ut:
 De första 5 kamera namnen (alfabetiskt).
-Alla foton för en given kategori (kamerans fullständiga namn) i formatet: name — category.
+Alla foton för en given kategori (kamerans fullständiga namn) i formatet: name/category.
 Ett räknarobjekt över hur många foton per kategori (kamera).
 
 Stretch:

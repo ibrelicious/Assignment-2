@@ -1,4 +1,3 @@
-/* Minimal styling – inget UI krävs för uppgiften, allt skrivs i konsolen */
 :root { --fg: #0b1220; --muted:#5c667a; --accent:#0059ff; --bg:#f6f8fc; }
 
 * { box-sizing: border-box; }

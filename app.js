@@ -152,7 +152,7 @@ function normalizeLaunches(launches, rockets) {
 
     // 4.2) Select & reshape: kompakta sammanfattningar
     // Liknar { id, name, category, ingredients: [...] } från uppgiften.
-    // Här: payloads motsvarar “ingredients”-listan (ID:er räcker för demo).
+    // Här: payloads motsvarar “ingredients”-listan.
     const summaries = data.map(l => ({
       id: l.id,
       name: l.name,
