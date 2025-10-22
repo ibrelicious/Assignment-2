@@ -1,22 +1,4 @@
-/**
- * Assignment 2 — SpaceX API
- * Fokus: fetch, async/await, JSON + map, filter, reduce, flatMap, some, every, sort, slice
- *
- * Flöde:
- *  1) Hämta JSON från SpaceX v4 (launches + rockets) med fetch/async/await.
- *  2) Normalisera och berika launch-objekt (lägger till rocketName, år osv).
- *  3) Visa resultat i konsolen:
- *      - Första 5 **launch-namn** i alfabetisk ordning.
- *      - Alla launches som tillhör en given "kategori" (här: raketnamn) → skriv "name — category".
- *      - Ett objekt som räknar hur många launches per kategori (raket).
- *      - some/every, flatMap, sort, slice demonstreras tydligt.
- *  4) Stretch:
- *      - groupBy(items, keyOrFn)
- *      - Select & reshape till kompakta sammanfattningar
- *      - Frequency map på t.ex. failure reasons och booster-cores
- */
-
-"use strict";
+// app.js
 
 // -------------------------
 // Konfiguration
@@ -32,7 +14,7 @@ function print(label, value) {
   console.log(value);
 }
 
-/** groupBy — kan ta nyckelsträng eller funktion */
+/** groupBy, kan ta nyckelsträng eller funktion */
 function groupBy(items, keyOrFn) {
   const getKey = typeof keyOrFn === "function" ? keyOrFn : (x) => x[keyOrFn];
   return items.reduce((acc, item) => {
@@ -50,7 +32,7 @@ function frequency(items) {
   }, {});
 }
 
-/** Bas-funktion för GET + JSON + enkel felhantering */
+/** Bas funktion för GET + JSON + enkel felhantering */
 async function fetchJson(url) {
   const res = await fetch(url);
   if (!res.ok) {
@@ -76,7 +58,7 @@ async function fetchSpaceXData() {
   return { launches, rockets };
 }
 
-/** Normaliserar launch-objekt och berikar med rocketName + år */
+/** Normaliserar launch objekt och lägger till rocketName + år */
 function normalizeLaunches(launches, rockets) {
   const rocketById = Object.fromEntries(rockets.map(r => [r.id, r]));
   return launches.map(l => {
@@ -126,11 +108,11 @@ function normalizeLaunches(launches, rockets) {
       .slice(0, 5);
     print("Första 5 launch-namn (alfabetiskt)", firstFiveNamesAlpha);
 
-    // 3.2) Alla launches som tillhör GIVEN_CATEGORY (filter), skriv "name — category"
+    // 3.2) Alla launches som tillhör GIVEN_CATEGORY (filter), skriv "name / category"
     const inCategory = data.filter(
       l => (l.rocketName || "").toLowerCase() === GIVEN_CATEGORY.toLowerCase()
     );
-    print(`Alla launches i kategori "${GIVEN_CATEGORY}" (name — category)`, "");
+    print(`Alla launches i kategori "${GIVEN_CATEGORY}" (name - category)`, "");
     inCategory.forEach(l => console.log(`• ${l.name} — ${l.rocketName}`));
 
     // 3.3) Objekt som räknar hur många launches per kategori (reduce)
@@ -142,17 +124,13 @@ function normalizeLaunches(launches, rockets) {
     }, {});
     print("Antal launches per raket (kategori)", launchesPerRocket);
 
-    // --- Stretch goals ---
-
     // 4.1) groupBy: efter rocketName och efter år
     const byRocket = groupBy(data, "rocketName");
     const byYear = groupBy(data, l => l.year);
-    print("groupBy rocketName → nycklar (förhandsvisning)", Object.keys(byRocket).slice(0, 5));
-    print("groupBy år → nycklar (förhandsvisning)", Object.keys(byYear).slice(0, 5));
+    print("groupBy rocketName → nycklar", Object.keys(byRocket).slice(0, 5));
+    print("groupBy år → nycklar", Object.keys(byYear).slice(0, 5));
 
     // 4.2) Select & reshape: kompakta sammanfattningar
-    // Liknar { id, name, category, ingredients: [...] } från uppgiften.
-    // Här: payloads motsvarar “ingredients”-listan.
     const summaries = data.map(l => ({
       id: l.id,
       name: l.name,

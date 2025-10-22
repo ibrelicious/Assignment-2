@@ -1,3 +1,4 @@
+/* style.css är egentligen oviktig att lägga till men inget fel att ha en liten layout */
 :root { --fg: #0b1220; --muted:#5c667a; --accent:#0059ff; --bg:#f6f8fc; }
 
 * { box-sizing: border-box; }
